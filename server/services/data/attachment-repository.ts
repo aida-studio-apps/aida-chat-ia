@@ -24,7 +24,6 @@ export async function getConversationAttachmentsText(conversationId: string): Pr
   });
 
   return attachments
-    .map((a) => `Document: ${a.fileName}\n${a.extractedText || ''}`)
+    .map((a: any) => `Document: ${a.fileName}\n${a.extractedText || ''}`)
     .join('\n\n');
 }
-

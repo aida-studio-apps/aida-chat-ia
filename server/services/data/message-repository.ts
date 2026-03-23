@@ -1,4 +1,3 @@
-import { MessageAuthor } from '@prisma/client';
 import { prisma } from '../../lib/prisma.js';
 
 export async function getConversationMessages(conversationId: string) {
@@ -8,13 +7,13 @@ export async function getConversationMessages(conversationId: string) {
     include: { attachments: true },
   });
 
-  return messages.map((m) => ({
+  return messages.map((m: any) => ({
     id: m.id,
     conversationId: m.conversationId,
     author: m.author,
     content: m.content,
     createdAt: m.createdAt.toISOString(),
-    attachments: m.attachments.map((a) => ({
+    attachments: m.attachments.map((a: any) => ({
       id: a.id,
       messageId: a.messageId,
       fileName: a.fileName,
@@ -29,7 +28,7 @@ export async function getConversationMessages(conversationId: string) {
 
 export async function createMessage(params: {
   conversationId: string;
-  author: MessageAuthor;
+  author: 'user' | 'assistant';
   content: string;
 }) {
   return prisma.message.create({
@@ -40,4 +39,3 @@ export async function createMessage(params: {
     },
   });
 }
-

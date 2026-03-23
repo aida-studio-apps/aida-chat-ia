@@ -30,7 +30,7 @@ export async function generateAssistantResponse(conversationId: string, userCont
 
     const messages = [
       { role: 'system' as const, content: systemPrompt },
-      ...history.map((m) => ({ role: m.author === 'user' ? ('user' as const) : ('assistant' as const), content: m.content })),
+      ...history.map((m: any) => ({ role: m.author === 'user' ? ('user' as const) : ('assistant' as const), content: m.content })),
       { role: 'user' as const, content: userContent },
     ];
 
@@ -47,7 +47,7 @@ export async function generateAssistantResponse(conversationId: string, userCont
       temperature: 0,
       messages: [
         { role: 'system', content: 'Résume les infos stables utiles sur l’utilisateur et liste 5 faits clés max en JSON strict {"summary":string,"keyFacts":string[]}.' },
-        { role: 'user', content: `Historique:\n${history.map((m) => `${m.author}: ${m.content}`).join('\n')}\n\nNouveau message utilisateur:\n${userContent}\n\nRéponse assistant:\n${assistantText}` },
+        { role: 'user', content: `Historique:\n${history.map((m: any) => `${m.author}: ${m.content}`).join('\n')}\n\nNouveau message utilisateur:\n${userContent}\n\nRéponse assistant:\n${assistantText}` },
       ],
     });
 
@@ -71,5 +71,3 @@ export async function generateAssistantResponse(conversationId: string, userCont
     throw new Error(getFullError(error));
   }
 }
-
-

@@ -12,12 +12,12 @@ export async function listConversations() {
     },
   });
 
-  return conversations.map((c) => ({
+  return conversations.map((c: any) => ({
     id: c.id,
     title: c.title,
     createdAt: c.createdAt.toISOString(),
     updatedAt: c.updatedAt.toISOString(),
-    hasAttachments: c.messages.some((m) => m.attachments.length > 0),
+    hasAttachments: c.messages.some((m: any) => m.attachments.length > 0),
     lastMessagePreview: c.messages[0]?.content?.slice(0, 120) || null,
   }));
 }
@@ -36,4 +36,3 @@ export async function createConversation(title?: string) {
     lastMessagePreview: null,
   };
 }
-
